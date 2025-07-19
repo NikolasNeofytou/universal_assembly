@@ -1,0 +1,5 @@
+; Simple example program
+PUSH 1
+PUSH 2
+ADD
+POP result
