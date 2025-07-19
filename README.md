@@ -7,3 +7,8 @@ The universal_assembly project aims to create a hardware-adaptive assembly langu
 - Run `python3 tools/hardware_scan.py` to display hardware information.
 - See `docs/core_instruction_set.md` for the base instruction set.
 - A basic assembler prototype is provided in `tools/assembler.py`.
+
+- Use `tools/pyasm.py` to assemble Python-like programs written with the helper
+  functions in `lib/building_blocks.py`.
+- Architecture descriptions can be found in the `architectures` package.
+

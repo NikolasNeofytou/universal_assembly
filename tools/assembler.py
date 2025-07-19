@@ -4,6 +4,11 @@
 import sys
 import re
 
+import os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from architectures import get_arch
+
+
 INSTRUCTIONS = {
     "MOV", "ADD", "SUB", "MUL", "DIV",
     "AND", "OR", "XOR", "NOT",
@@ -13,8 +18,14 @@ INSTRUCTIONS = {
 }
 
 
-def assemble(path):
+
+def assemble(path, arch=None):
     tokens = []
+    arch_features = get_arch(arch) if arch else None
+    if arch_features:
+        print(f"Assembling for {arch} with registers: {arch_features['registers']}")
+
+
     with open(path) as f:
         for lineno, line in enumerate(f, 1):
             line = line.strip()
@@ -30,9 +41,13 @@ def assemble(path):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: assembler.py <source.uas>")
+
+    if not (2 <= len(sys.argv) <= 3):
+        print("Usage: assembler.py <source.uas> [arch]")
         sys.exit(1)
 
-    for instr, ops in assemble(sys.argv[1]):
+    source = sys.argv[1]
+    arch = sys.argv[2] if len(sys.argv) == 3 else None
+    for instr, ops in assemble(source, arch=arch):
+
         print(f"{instr} {ops}".strip())
